@@ -1,44 +1,88 @@
-# UIBC · Unified Integrity Boundary Check
+<p align="center">
+  <strong>UIBC · Unified Integrity Boundary Check</strong><br>
+  <em>Can a machine check what an agent left behind, from bytes alone — and say so when it cannot?</em>
+</p>
 
-Open-source spec, conformance vectors and reference verifier for **unified integrity boundary checks** on agent evidence.
+<p align="center">
+  <a href="https://github.com/UIBC/vectors/actions/workflows/ci.yml"><img src="https://github.com/UIBC/vectors/actions/workflows/ci.yml/badge.svg?branch=main" alt="vectors gate"></a>
+</p>
 
-**What a PASS means — and nothing more.** Within the observed evidence boundary, no violation was detected. It does not claim the agent was correct, safe, or wise; that the recorded inputs were true or complete; or that any real-world outcome followed.
+<p align="center">
+Apache-2.0 · spec <b>draft 00</b> (non-normative, not submitted anywhere) · external runs <b>0</b>
+</p>
 
-**What this organisation is not.** Not a standards body. Issues no certificates. Accredits nobody. A UIBC verdict is evidence a reader can re-run, not an authorisation from an authority.
+<p align="center"><sub>One badge, served by GitHub itself. The rest of the state is written out, because a status image hosted by a third party is a check that cannot be re-run offline.</sub></p>
 
-## Where things live today
+Open spec, executable conformance fixtures and a reference verifier for **integrity boundary checks on agent evidence**. Not a standards body. Issues no certificates. Accredits nobody.
 
-| Part | Location | State |
+**What a PASS means, and nothing more.** Within the observed evidence boundary, no violation was detected. It does not claim the agent was correct, safe or wise; that the recorded inputs were true or complete; or that any real-world outcome followed. A verdict is evidence a reader can re-run, not an authorisation from an authority.
+
+## Repositories
+
+| Repository | Role | State |
 |---|---|---|
-| Reference verifier, spec drafts, vectors | `zhaoxinghua09-cell/uibc-core` | active, Apache-2.0, online verifier page live |
-| Public spec edition | planned in this organisation | not published yet |
-| Conformance vectors, standalone edition | planned in this organisation | currently inside the core repo |
-| Third-party run ledger | planned in this organisation | empty |
+| [`spec`](https://github.com/UIBC/spec) | The normative text: what a package must contain, what a verifier may conclude, and what it must not | draft 00, non-normative, Internet-Draft shape |
+| [`vectors`](https://github.com/UIBC/vectors) | Four committed packages and a six-row gate: PASS, FAIL, and the forgery that unpinned verification accepts | CI green on 2 OS × 2 Python; one author run, zero external |
+| [`.github`](https://github.com/UIBC/.github) | This front door, `SECURITY.md`, `CONTRIBUTING.md`, `CODEOWNERS`, adoption templates | active |
+| `core` *(pending)* | Reference verifier `uibc-core`, today at `zhaoxinghua09-cell/uibc-core` | transfer planned, see [below](#why-the-verifier-is-still-outside-this-organisation) |
 
-Repositories move in as the public edition lands. GitHub redirects repository paths on transfer, so existing links keep resolving; the online verifier page does **not** redirect, and that is why it stays where it is until a stable domain exists.
+## Check us in two commands
 
-## How to check us cheaply
+No credentials, no website, no maintainer involved — both run offline after the clone.
 
 ```bash
-git clone --depth 1 https://github.com/zhaoxinghua09-cell/uibc-core.git
-cd uibc-core && python tools/external_node_check.py
+git clone --depth 1 https://github.com/UIBC/vectors.git && cd vectors
+pip install "uibc-core==0.5.0" && python tools/run_vectors.py
+# expected: MATRIX GATE OK - all 6 rows match
 ```
 
-Prints `CONSISTENT` only when a second, independently written verifier agrees with the reference one **and** three packages that must be rejected are rejected. A checker that answers PASS for everything cannot pass this.
+```bash
+git clone --depth 1 https://github.com/zhaoxinghua09-cell/uibc-core.git && cd uibc-core
+python tools/external_node_check.py
+# expected: CONSISTENT
+```
 
-## Honest ledger (kept current, not aspirational)
+The second prints `CONSISTENT` only when a second, independently written verifier agrees with the reference one **and** three packages that must be rejected are rejected. A checker that answers PASS for everything cannot pass it.
+
+A stranger can also send a receipt back and become a row in [`RUNS.md`](https://github.com/UIBC/vectors/blob/main/RUNS.md) instead of being quoted as "verified". `tools/check_receipt.py` re-derives those digests from the committed bytes, in CI, on every push.
+
+## What is machine-checked here, not asserted
+
+| Check | Where it runs | What it catches |
+|---|---|---|
+| Six-row verdict matrix | `vectors` CI, 2 OS × 2 Python | a verdict that drifted from `EXPECTED.md` |
+| Receipt ledger | `vectors` CI | a receipt whose bytes no longer match the repository |
+| Key hygiene | `vectors` CI | a seed outside `keys/`, a replaced fixture, a committed PEM key |
+| Byte stability | `.gitattributes` | a renormalisation that would invalidate every receipt |
+
+Any of these can be red while the others are green, which is why they are separate jobs rather than one.
+
+## Honest ledger
 
 | Item | Value |
 |---|---|
-| External verification nodes (third-party people) | 0 |
-| Third-party run receipts | 0 |
-| Published spec edition | none |
+| Third-party people who have run the fixtures | **0** |
+| Third-party receipts in the ledger | **0** |
+| Published conformance suite for third parties | does not exist yet |
+| Public governance document | none |
 | Maintainers | 1 |
+| Spec editions published | draft 00 |
 
-Published numbers are the ones we have, not the ones we want.
+Numbers here are what the repositories can demonstrate, not what we would like them to be.
+
+## Why the verifier is still outside this organisation
+
+GitHub redirects repository paths on transfer; it does not redirect Pages URLs. The online check page is served from `zhaoxinghua09-cell.github.io/uibc-core/` and that URL is cited in an external thread. Moving it needs a stable domain or a redirect page first; until then the code stays where the page is.
+
+## Discuss, or report
+
+- Questions and disagreements: [Discussions on `spec`](https://github.com/UIBC/spec/discussions)
+- Security reports: [`SECURITY.md`](https://github.com/UIBC/.github/blob/main/SECURITY.md) — private channel, one maintainer, no service level
+- Adopting the gate in your own repository: [`workflow-templates`](https://github.com/UIBC/.github/tree/main/workflow-templates)
 
 ## 中文说明
 
-UIBC 指“统一完整性边界校验”，用于对智能体（agent）留下的证据做可复跑的完整性判定。
+UIBC 指“统一完整性边界校验”，用于对智能体（agent）留下的证据做可复跑的完整性判定：只用字节，不用网站、API 或作者本人。
 它不是临床检验里的同名缩写（不饱和铁结合力），也与任何同名机构无关。
 一个 UIBC 的 PASS 只表示：在所观测的证据边界内未检出违规；不表示该智能体行为正确、安全或明智。
+本组织不是标准组织，不发证书、不做认证、不代表任何监管认可。规范目前是 draft 00，非规范文本，未提交任何标准组织。
