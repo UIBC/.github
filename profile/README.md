@@ -17,12 +17,22 @@ Open spec, executable conformance fixtures and a reference verifier for **integr
 
 **What a PASS means, and nothing more.** Within the observed evidence boundary, no violation was detected. It does not claim the agent was correct, safe or wise; that the recorded inputs were true or complete; or that any real-world outcome followed. A verdict is evidence a reader can re-run, not an authorisation from an authority.
 
+## Start here, by what you want
+
+| You want to… | Go to |
+|---|---|
+| see the numbers with your own hands | [`spec/QUICKSTART.md`](https://github.com/UIBC/spec/blob/main/QUICKSTART.md) — three commands, expected output written in |
+| know how this differs from SCITT, C2PA, the signed-receipt drafts, sigstore, AIUC-1 | [`spec/RELATED-WORK.md`](https://github.com/UIBC/spec/blob/main/RELATED-WORK.md) — what we borrow, what we do not do, where we are behind |
+| submit a run and become a row instead of a quote | [`registry`](https://github.com/UIBC/.github/tree/main/registry) — six states, transition rules enforced by a script |
+| have a machine read this organisation | [`llms.txt`](https://github.com/UIBC/.github/blob/main/llms.txt) · [`entity.json`](https://github.com/UIBC/.github/blob/main/entity.json) |
+
 ## Repositories
 
 | Repository | Role | State |
 |---|---|---|
 | [`spec`](https://github.com/UIBC/spec) | The normative text: what a package must contain, what a verifier may conclude, and what it must not | draft 00, non-normative, Internet-Draft shape |
-| [`vectors`](https://github.com/UIBC/vectors) | Four committed packages and a six-row gate: PASS, FAIL, and the forgery that unpinned verification accepts | CI green on 2 OS × 2 Python; one author run, zero external |
+| [`vectors`](https://github.com/UIBC/vectors) | Six committed packages and an eight-row gate: PASS, FAIL, the forgery that unpinned verification accepts, and the unsigned package that must not verify | CI green on 2 OS × 2 Python; 12-case adversarial set (9 rejected, 3 documented defects); one author run, zero external |
+
 | [`uibc-bench`](https://github.com/UIBC/uibc-bench) | The pre-release bench behind this organisation's own claims: six placement classes for handoff files, three-reader agreement under one command, hash-attested exclusions | v0.4.33 public snapshot; `python tools/gate_all.py --dir <docs> --roots <clone>` gives `GREEN 5/5`, hard defects 0 |
 | [`.github`](https://github.com/UIBC/.github) | This front door, `SECURITY.md`, `CONTRIBUTING.md`, `CODEOWNERS`, adoption templates | active |
 | `core` *(pending)* | Reference verifier `uibc-core`, today at `zhaoxinghua09-cell/uibc-core` | transfer planned, see [below](#why-the-verifier-is-still-outside-this-organisation) |
