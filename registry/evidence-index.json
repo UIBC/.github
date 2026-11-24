@@ -1,0 +1,126 @@
+{
+  "contract_version": "uibc-evidence-index/1",
+  "purpose": "The public face of this organisation keeps understating what the implementation repositories can prove. On 2026-11-24 that happened three times in one day: a second implementation (verify-js, 18 of 19 checks) was described as missing; a verifier benchmark record was described as absent; and a Bitcoin block attestation (height 976735) was described as pending. Each description was written from memory or from an older snapshot. This file exists so that a claim about our own state is a row with a digest behind it, and so that 'absent' has to survive a file that says otherwise.",
+  "rules": [
+    "present: at least one witness whose bytes are fetched and whose sha256 and length are compared; at least one of them must not be prose (.md/.txt), because a paragraph cannot witness itself.",
+    "absent: must carry an absent_check that fetches a machine-readable ledger and compares a path to an expected value. If the ledger says otherwise, the entry is refused - that is how an under-claim is stopped.",
+    "link: where one witness states the digest of another (a proof file naming its own container), the two must agree.",
+    "as_of: an ISO date for when the claim was last re-derived from the artifacts rather than remembered."
+  ],
+  "entries": [
+    {
+      "id": "second-implementation",
+      "claim": "A second implementation in a second language exists and is enforced in CI, covering 18 of 19 checks.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "strict 36/36, refused 30/36 over 36 packages; tools/assert_second_impl.py fails the build when the second implementation drifts",
+      "witness": [
+        {
+          "path": "docs/SECOND-IMPLEMENTATION.md",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/docs/SECOND-IMPLEMENTATION.md",
+          "sha256": "e93303b999d3ea70d0897492ba8e0a7bca6de5c49e916b897a2789b7d480d967",
+          "bytes": 6543
+        },
+        {
+          "path": "tools/verify-js/verify.mjs",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/tools/verify-js/verify.mjs",
+          "sha256": "0428f57e9b58759acb1b3027cd40843ee4d3d5d5352a2ecd4f77ffc8ce086887",
+          "bytes": 58364
+        }
+      ],
+      "why_it_matters": "Public documents described this as missing on 2026-11-24 while the code had been in CI since 2026-11-18. An under-claim is as damaging as an overclaim when a reader relies on it."
+    },
+    {
+      "id": "external-verifier-benchmark",
+      "claim": "A separate verifier has been measured against the mutation benchmark, with per-case raw exit codes recorded.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "21 mutants, 2 accepted, false-accept rate 9.5%, run 2026-11-18T17:38:09Z",
+      "witness": [
+        {
+          "path": "benchmarks/submissions/uibc-iverify@158a82d.json",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/benchmarks/submissions/uibc-iverify@158a82d.json",
+          "sha256": "ae3932fe2128c6cc9c9740c2a5d68e74129ce99d6ed26caf50b39b45da8964d3",
+          "bytes": 2963
+        }
+      ]
+    },
+    {
+      "id": "time-proof-v0.5.0",
+      "claim": "The v0.5.0 corpus digest file is attested by a Bitcoin block, not merely by a calendar server.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "block height 976735, block time 2026-11-20T14:17:33Z, merkle root matched against blockstream.info on 2026-11-21T01:15Z",
+      "witness": [
+        {
+          "path": "anchors/attestations/v0.5.0/BITCOIN-ATTESTATION.json",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/anchors/attestations/v0.5.0/BITCOIN-ATTESTATION.json",
+          "sha256": "63574da5e5d9c49a83bf9a1704612b0e748b9a40ec2db5065f0ed177e487d28f",
+          "bytes": 1911
+        },
+        {
+          "path": "anchors/attestations/v0.5.0/CORPUS-DIGESTS.txt.ots",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/anchors/attestations/v0.5.0/CORPUS-DIGESTS.txt.ots",
+          "sha256": "f8e216935dcd1baa5f8e647fd53aa2a3b70f1250e8dc8a48187f0e861357e3d6",
+          "bytes": 1308
+        }
+      ],
+      "link": {
+        "from": "anchors/attestations/v0.5.0/BITCOIN-ATTESTATION.json",
+        "json_path": "proof.sha256",
+        "to": "anchors/attestations/v0.5.0/CORPUS-DIGESTS.txt.ots",
+        "note": "the attestation names the digest of its own proof container"
+      },
+      "limits": "A block proves existence before that block's time. It does not prove authorship, and it does not prove the workflow behaved."
+    },
+    {
+      "id": "time-proof-v0.4.1",
+      "claim": "The v0.4.1 corpus digest file is attested by a Bitcoin block.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "block height 976684, block time 2026-11-20T04:46:13Z",
+      "witness": [
+        {
+          "path": "anchors/attestations/v0.4.1/BITCOIN-ATTESTATION.json",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/anchors/attestations/v0.4.1/BITCOIN-ATTESTATION.json",
+          "sha256": "db7d44f06c42e5a348b0f8b8174c1db1e6eaba33b472c9ec2a74267a94066368",
+          "bytes": 1635
+        },
+        {
+          "path": "anchors/attestations/v0.4.1/CORPUS-DIGESTS.txt.ots",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/anchors/attestations/v0.4.1/CORPUS-DIGESTS.txt.ots",
+          "sha256": "d107ecd530641fe0dd6dde7f63c16dfd7b13d7abf4cf7635d1ab3dec9bc3fa8e",
+          "bytes": 1168
+        }
+      ],
+      "link": {
+        "from": "anchors/attestations/v0.4.1/BITCOIN-ATTESTATION.json",
+        "json_path": "proof.sha256",
+        "to": "anchors/attestations/v0.4.1/CORPUS-DIGESTS.txt.ots",
+        "note": "the v0.4.1 page file was a bare serialized tree the ots client refuses, so the standard container lives in the repository"
+      }
+    },
+    {
+      "id": "external-independent-run",
+      "claim": "No run of this corpus by anyone outside this organisation has been posted.",
+      "state": "absent",
+      "as_of": "2026-11-24",
+      "measured": "headline 0, rows 0, independent 0",
+      "absent_check": {
+        "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/docs/EXTERNAL-RUNS.json",
+        "path": "headline",
+        "equals": 0,
+        "note": "if this ledger ever shows a headline above zero, this entry is wrong and the checker refuses it"
+      },
+      "witness": [
+        {
+          "path": "docs/EXTERNAL-RUNS.json",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/docs/EXTERNAL-RUNS.json",
+          "sha256": "d1ff09fb8b807aff30e843da12c814d286c75ce0d40c5af4ebfd856fd757f3bd",
+          "bytes": 830
+        }
+      ],
+      "limits": "Absence is the one claim this file cannot make cheaply: a ledger we maintain could simply never be updated. It is recorded as a machine-checked zero, not as proof that nobody ran it."
+    }
+  ]
+}

@@ -24,6 +24,7 @@ Open spec, executable conformance fixtures and a reference verifier for **integr
 | see the numbers with your own hands | [`spec/QUICKSTART.md`](https://github.com/UIBC/spec/blob/main/QUICKSTART.md) — three commands, expected output written in |
 | know how this differs from SCITT, C2PA, the signed-receipt drafts, sigstore, AIUC-1 | [`spec/RELATED-WORK.md`](https://github.com/UIBC/spec/blob/main/RELATED-WORK.md) — what we borrow, what we do not do, where we are behind |
 | submit a run and become a row instead of a quote | [`registry`](https://github.com/UIBC/.github/tree/main/registry) — six states, transition rules enforced by a script |
+| check that our public claims resolve to bytes, not to prose | [egistry/evidence-index.json](https://github.com/UIBC/.github/blob/main/registry/evidence-index.json) — every row fetched and digest-compared; 'absent' rows must survive a ledger that could contradict them |
 | have a machine read this organisation | [`llms.txt`](https://github.com/UIBC/.github/blob/main/llms.txt) · [`entity.json`](https://github.com/UIBC/.github/blob/main/entity.json) |
 
 ## Repositories
@@ -109,3 +110,4 @@ UIBC 指“统一完整性边界校验”，用于对智能体（agent）留下�
 它不是临床检验里的同名缩写（不饱和铁结合力），也与任何同名机构无关。
 一个 UIBC 的 PASS 只表示：在所观测的证据边界内未检出违规；不表示该智能体行为正确、安全或明智。
 本组织不是标准组织，不发证书、不做认证、不代表任何监管认可。规范目前是 draft 00，非规范文本，未提交任何标准组织。
+

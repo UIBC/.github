@@ -50,3 +50,27 @@ python registry/check_registry.py            # 期望：REGISTRY OK - 1 entry, 0
 ```
 
 纯标准库，无第三方依赖。
+
+## 证据索引：公开面不许凭记忆说话
+
+`registry/evidence-index.json` 把"本组织关于自身状态的公开说法"变成行：每条都有 `state`（present / absent）、`as_of`、`measured`、以及带 `sha256` 与字节数的见证文件。
+
+起因是 2026-11-24 一天之内**同一类错误犯了三次**：把已有的第二实现（`verify-js`，18/19 项）说成缺失、把已有的验证器基准记录说成没有、把已有比特币区块锚证（高度 976735）说成 Pending。三次都不是谎话，是凭记忆或旧快照写的句子——散文没有摘要，所以它会静默漂移。
+
+规则（`registry/check_evidence_index.py`）：
+
+- **present**：逐个抓取见证文件，比对 sha256 与长度；且至少一个见证不是 `.md/.txt` —— 一段散文不能给自己作证。
+- **absent**：必须带 `absent_check`，去抓一份机器可读账本并比对某个路径的值。账本一旦显示非零，这一行就被拒 —— 这就是"少报"被拦住的方式。
+- **link**：锚证里记载的 `proof.sha256` 必须等于实际 `.ots` 容器的摘要（当前两条都对上）。
+- **离线可复核**：`--cache <dir>` 从本地镜像读取（键为 `sha256(url)`），给无法直连的人一条同等的复核路径；`--no-network` 只查结构，并打印 `UNVERIFIED`，不会悄悄算通过。
+
+实跑（本地镜像复核，7 个见证全部抓取）：
+
+```
+EVIDENCE INDEX OK - 5 entries, 4 present, 1 absent; 7 witnesses fetched, digests and lengths match.
+```
+
+三个负对照都被拦住：改错见证摘要 → `R2 digest mismatch`；把账本改成 `headline=1` → `R3 claims absence but headline=1 ... the claim is stale, not the ledger`；改坏锚证里的 `proof.sha256` → `R4 ... does not match`。
+
+一条要说清的局限：**"外部独立运行不存在"这类 absence，永远只能靠我们自己维护的账本证明**，账本可能长期不更新。所以它是"机器核过的 0"，不是"没人跑过"的证据。
+
