@@ -1,0 +1,7 @@
+{
+  "name": "UIBC vectors gate",
+  "description": "Run the UIBC six-row conformance gate (uibc-core pinned, fixtures pinned) as a check in your repository.",
+  "iconName": "shield",
+  "categories": ["Continuous integration", "Security", "Testing"],
+  "filePatterns": ["**/vectors/**", "**/.github/workflows/**"]
+}
