@@ -1,0 +1,62 @@
+{
+  "schema": "uibc-entity/1",
+  "updated": "2026-11-24",
+  "name": "UIBC",
+  "full_name": "Unified Integrity Boundary Check",
+  "url": "https://github.com/UIBC",
+  "type": "open repository set (draft specification + conformance vectors + reference verifier + pre-release bench)",
+  "description": "A portable package that binds an agent's identity, lifecycle and action evidence into one hash-committed structure, plus a verification procedure with three-valued outcomes (PASS / FAIL / INCONCLUSIVE).",
+  "question_it_answers": "Can a machine check what an agent left behind, from bytes alone — and say so when it cannot?",
+  "question_it_does_not_answer": "Whether the agent behaved correctly, safely, or whether the recorded inputs were true.",
+  "not": [
+    "a standards body",
+    "a certification body",
+    "an accreditation body",
+    "a ranking or rating service",
+    "a transparency log operator"
+  ],
+  "repos": {
+    "spec": "https://github.com/UIBC/spec",
+    "vectors": "https://github.com/UIBC/vectors",
+    "bench": "https://github.com/UIBC/uibc-bench",
+    "org_files": "https://github.com/UIBC/.github",
+    "reference_verifier": "https://github.com/zhaoxinghua09-cell/uibc-core"
+  },
+  "spec": {
+    "id": "draft-zhao-uibc-evidence-chain-00",
+    "status": "draft 00, non-normative",
+    "submitted_to_standards_body": false,
+    "url": "https://github.com/UIBC/spec/blob/main/spec/draft-zhao-uibc-evidence-chain-00.md"
+  },
+  "outcomes": ["PASS", "FAIL", "INCONCLUSIVE"],
+  "verify": {
+    "install": "python -m pip install \"uibc-core==0.5.0\"",
+    "run": "git clone --depth 1 https://github.com/UIBC/vectors.git && cd vectors && python tools/run_vectors.py",
+    "expected": "MATRIX GATE OK - all 6 rows match.",
+    "offline": true,
+    "requires_credentials": false,
+    "requires_trust_root": false
+  },
+  "machine_entry": {
+    "llms_txt": "https://raw.githubusercontent.com/UIBC/.github/main/llms.txt",
+    "registry_index": "https://raw.githubusercontent.com/UIBC/.github/main/registry/index.json",
+    "registry_schema": "https://raw.githubusercontent.com/UIBC/.github/main/registry/schema.json",
+    "status_ledger": "https://github.com/UIBC/spec/blob/main/STATUS.md"
+  },
+  "measured_state": {
+    "external_independent_runs": 0,
+    "external_reviewers": 0,
+    "registry_entries": 1,
+    "registry_independent_entries": 0,
+    "implementations_exercised": 1,
+    "as_of": "2026-11-24"
+  },
+  "citation_rules": [
+    "A PASS without a pinned public key means internal consistency only, not authorship.",
+    "OK within the observed evidence boundary means no violation was detected; it is not a statement that the agent was correct or safe.",
+    "Machine reviewers must be labelled 'machine reviewer'; two implementations by the same author do not constitute an independent implementation."
+  ],
+  "related_work": "https://github.com/UIBC/spec/blob/main/RELATED-WORK.md",
+  "license": "Apache-2.0",
+  "contact": "https://github.com/UIBC/.github/issues"
+}

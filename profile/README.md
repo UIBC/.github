@@ -17,6 +17,15 @@ Open spec, executable conformance fixtures and a reference verifier for **integr
 
 **What a PASS means, and nothing more.** Within the observed evidence boundary, no violation was detected. It does not claim the agent was correct, safe or wise; that the recorded inputs were true or complete; or that any real-world outcome followed. A verdict is evidence a reader can re-run, not an authorisation from an authority.
 
+## Start here, by what you want
+
+| You want to… | Go to |
+|---|---|
+| see the numbers with your own hands | [`spec/QUICKSTART.md`](https://github.com/UIBC/spec/blob/main/QUICKSTART.md) — three commands, expected output written in |
+| know how this differs from SCITT, C2PA, the signed-receipt drafts, sigstore, AIUC-1 | [`spec/RELATED-WORK.md`](https://github.com/UIBC/spec/blob/main/RELATED-WORK.md) — what we borrow, what we do not do, where we are behind |
+| submit a run and become a row instead of a quote | [`registry`](https://github.com/UIBC/.github/tree/main/registry) — six states, transition rules enforced by a script |
+| have a machine read this organisation | [`llms.txt`](https://github.com/UIBC/.github/blob/main/llms.txt) · [`entity.json`](https://github.com/UIBC/.github/blob/main/entity.json) |
+
 ## Repositories
 
 | Repository | Role | State |

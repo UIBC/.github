@@ -1,0 +1,18 @@
+{
+  "schema": "uibc-registry/1",
+  "updated": "2026-11-24",
+  "entries": [
+    {
+      "id": "uibc-vectors-six-row-2026-11-23",
+      "namespace": "github.com/UIBC/vectors",
+      "subject": "UIBC conformance vectors, six-row matrix gate",
+      "version": "0.5.0",
+      "state": "checked",
+      "code": "author",
+      "since": "2026-11-23",
+      "evidence": "https://github.com/UIBC/vectors/blob/main/EXPECTED.md",
+      "receipt": "https://github.com/UIBC/vectors/blob/main/receipts/2026-11-23-author-local.json",
+      "notes": "Author-side run on Windows 11 / Python 3.13.14; 6/6 rows match. Not an independent run."
+    }
+  ]
+}

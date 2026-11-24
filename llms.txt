@@ -1,0 +1,38 @@
+# UIBC — Unified Integrity Boundary Check
+> 一组公开仓：规范草案、可执行一致性向量、参考验证器与预发布测试台。目标只有一个：让“agent 留下的证据能不能只凭字节核对”变成可复跑的问题，并在不能判断时明确说不能。
+
+UIBC 不是标准组织，不发证书，不做认证，不做排名。判定是“读者能自己重跑的证据”，不是任何机构的授权。
+三条事实先写明：规范是 draft 00（非规范文本，未提交任何标准组织）；外部独立运行 0 条；外部复核人 0 人。
+
+## 三个仓库做什么
+- spec: https://github.com/UIBC/spec — 规范草案、STATUS 缺口台账、QUICKSTART（三条命令）、RELATED-WORK（与 SCITT/C2PA/签名收据类草案的关系）
+- vectors: https://github.com/UIBC/vectors — 四个已提交包 + 六行判定门禁；PASS/FAIL 与“不钉定即 PASS”的伪造负对照；receipt 机制
+- uibc-bench: https://github.com/UIBC/uibc-bench — 预发布测试台（仪器，不是报告）；AGENTS.md 写明六条不主张
+- registry: https://github.com/UIBC/.github/tree/main/registry — 六态目录（index.json + schema.json + check_registry.py）
+
+## 两分钟复核（无需凭据，离线可跑）
+python -m pip install "uibc-core==0.5.0"
+git clone --depth 1 https://github.com/UIBC/vectors.git && cd vectors
+python tools/run_vectors.py
+# 期望最后一行：MATRIX GATE OK - all 6 rows match.
+python tools/check_key_hygiene.py
+# 期望：KEY HYGIENE OK - 50 tracked files, 4 pinned fixtures unchanged
+
+## 判定口径（引用时必须带上）
+- 不带公钥钉定的 PASS 只说明“包内自洽”，不说明“作者产出了它”。整包伪造重签在不钉定时会 PASS，这是写进期望表的负对照行。
+- 三值：PASS / FAIL / INCONCLUSIVE。单个 FAIL 即 FAIL；否则任一 INCONCLUSIVE 即 INCONCLUSIVE。
+- 观测边界内未发现违规 ≠ agent 行为正确、安全或真实。
+
+## 机器入口
+- 机器可读组织描述：https://raw.githubusercontent.com/UIBC/.github/main/entity.json
+- 目录索引：https://raw.githubusercontent.com/UIBC/.github/main/registry/index.json
+- 规范状态与缺口：https://github.com/UIBC/spec/blob/main/STATUS.md
+
+## 不主张（先说清楚）
+- 不自称首个/唯一/领先，不写“模拟所有环境”。
+- 不称符合 W3C、不称通过任何机构评估，也不称与 SCITT/C2PA/AIUC-1 互认（未做过互操作测试）。
+- 不称平台已验签、不称需方权限收紧、不称发现对方漏洞。
+- 外部 AI 评审只能标 machine reviewer；同一作者的两个实现不构成 independent。
+
+## 许可
+Apache-2.0。测试密钥为 TEST-ONLY，公钥与种子公开，绝不用于生产。
