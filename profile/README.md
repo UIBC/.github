@@ -31,7 +31,8 @@ Open spec, executable conformance fixtures and a reference verifier for **integr
 | Repository | Role | State |
 |---|---|---|
 | [`spec`](https://github.com/UIBC/spec) | The normative text: what a package must contain, what a verifier may conclude, and what it must not | draft 00, non-normative, Internet-Draft shape |
-| [`vectors`](https://github.com/UIBC/vectors) | Four committed packages and a six-row gate: PASS, FAIL, and the forgery that unpinned verification accepts | CI green on 2 OS × 2 Python; one author run, zero external |
+| [`vectors`](https://github.com/UIBC/vectors) | Six committed packages and an eight-row gate: PASS, FAIL, the forgery that unpinned verification accepts, and the unsigned package that must not verify | CI green on 2 OS × 2 Python; 12-case adversarial set (9 rejected, 3 documented defects); one author run, zero external |
+
 | [`uibc-bench`](https://github.com/UIBC/uibc-bench) | The pre-release bench behind this organisation's own claims: six placement classes for handoff files, three-reader agreement under one command, hash-attested exclusions | v0.4.33 public snapshot; `python tools/gate_all.py --dir <docs> --roots <clone>` gives `GREEN 5/5`, hard defects 0 |
 | [`.github`](https://github.com/UIBC/.github) | This front door, `SECURITY.md`, `CONTRIBUTING.md`, `CODEOWNERS`, adoption templates | active |
 | `core` *(pending)* | Reference verifier `uibc-core`, today at `zhaoxinghua09-cell/uibc-core` | transfer planned, see [below](#why-the-verifier-is-still-outside-this-organisation) |

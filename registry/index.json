@@ -12,7 +12,7 @@
       "since": "2026-11-23",
       "evidence": "https://github.com/UIBC/vectors/blob/main/EXPECTED.md",
       "receipt": "https://github.com/UIBC/vectors/blob/main/receipts/2026-11-23-author-local.json",
-      "notes": "Author-side run on Windows 11 / Python 3.13.14; 6/6 rows match. Not an independent run."
+      "notes": "Author-side run on Windows 11 / Python 3.13.14; 8/8 rows match, 9/9 adversarial cases rejected, 3 documented defects reproduce (D-002). Not an independent run."
     }
   ]
 }
