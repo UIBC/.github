@@ -23,6 +23,7 @@ Open spec, executable conformance fixtures and a reference verifier for **integr
 |---|---|---|
 | [`spec`](https://github.com/UIBC/spec) | The normative text: what a package must contain, what a verifier may conclude, and what it must not | draft 00, non-normative, Internet-Draft shape |
 | [`vectors`](https://github.com/UIBC/vectors) | Four committed packages and a six-row gate: PASS, FAIL, and the forgery that unpinned verification accepts | CI green on 2 OS × 2 Python; one author run, zero external |
+| [`uibc-bench`](https://github.com/UIBC/uibc-bench) | The pre-release bench behind this organisation's own claims: six placement classes for handoff files, three-reader agreement under one command, hash-attested exclusions | v0.4.33 public snapshot; `python tools/gate_all.py --dir <docs> --roots <clone>` gives `GREEN 5/5`, hard defects 0 |
 | [`.github`](https://github.com/UIBC/.github) | This front door, `SECURITY.md`, `CONTRIBUTING.md`, `CODEOWNERS`, adoption templates | active |
 | `core` *(pending)* | Reference verifier `uibc-core`, today at `zhaoxinghua09-cell/uibc-core` | transfer planned, see [below](#why-the-verifier-is-still-outside-this-organisation) |
 
@@ -45,6 +46,18 @@ python tools/external_node_check.py
 The second prints `CONSISTENT` only when a second, independently written verifier agrees with the reference one **and** three packages that must be rejected are rejected. A checker that answers PASS for everything cannot pass it.
 
 A stranger can also send a receipt back and become a row in [`RUNS.md`](https://github.com/UIBC/vectors/blob/main/RUNS.md) instead of being quoted as "verified". `tools/check_receipt.py` re-derives those digests from the committed bytes, in CI, on every push.
+
+## Run the bench behind our claims
+
+Every claim this organisation makes is produced by a bench anyone can clone and run; it is published so the checking does not rest on us.
+
+```bash
+git clone --depth 1 https://github.com/UIBC/uibc-bench.git && cd uibc-bench
+python tools/gate_all.py --dir <a copy of a review package> --roots .
+# expected: verdict=GREEN green=5 red=0
+```
+
+It is an instrument, not a report: the bench is public, the packages it audits are not. What it does not claim (no "leads the field", no "simulates every environment", no "certified by any standards body") is written out in `AGENTS.md` before anything else.
 
 ## What is machine-checked here, not asserted
 
