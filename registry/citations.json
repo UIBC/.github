@@ -1,0 +1,45 @@
+{
+  "contract_version": "uibc-citations/1",
+  "purpose": "Our documents cite other people's pages for facts we rely on: the CAVP black-box rule, the Kubernetes conformance mechanics, the DID Core test-suite count. Those quotations are load-bearing - the argument about what we borrow collapses if the source stops saying it - and nothing checked them until now. A citation that no longer resolves, or a page whose wording changed under a quote, is a silent defect in someone else's evidence.",
+  "rules": [
+    "every entry: url, must_contain (at least one phrase), context (why we cite it), as_of",
+    "the page must fetch 2xx and every phrase must appear after whitespace normalisation, case-insensitively",
+    "phrases must be quotations, not summaries: if the phrase is our paraphrase, the check proves nothing",
+    "--cache lets an offline reader replay the same check; --no-network reports structure only and says UNVERIFIED"
+  ],
+  "entries": [
+    {
+      "id": "cavp-black-box",
+      "claim": "NIST's validation programme does not run the implementation under test; it supplies vectors and judges the returned outputs.",
+      "url": "https://pages.nist.gov/ACVP/draft-fussell-acvp-spec.html",
+      "must_contain": [
+        "Sends JSON formatted messaging and test data to the ACV client",
+        "Test Vector Set"
+      ],
+      "context": "Why we separate 'setting the questions' from 'answering them' in the conformance proposal - the reference programme states that separation explicitly.",
+      "as_of": "2026-11-24"
+    },
+    {
+      "id": "kubernetes-conformance-mechanics",
+      "claim": "The certified Kubernetes programme is self-testing plus a submission reviewed by someone else, and certification is time-limited.",
+      "url": "https://www.cncf.io/training/certification/software-conformance/",
+      "must_contain": [
+        "There are over 90 Certified Kubernetes offerings",
+        "Sonobuoy"
+      ],
+      "context": "Source for the three ingredients we lack: a manifest naming a legal entity, a reviewer who is not the author, and a listing that expires.",
+      "as_of": "2026-11-24"
+    },
+    {
+      "id": "did-core-feature-count",
+      "claim": "W3C recorded per-feature results across a large normative feature set rather than issuing a single badge.",
+      "url": "https://w3c.github.io/did-wg/faqs/2021-formal-objections/",
+      "must_contain": [
+        "tested 137 normative features",
+        "DID Methods"
+      ],
+      "context": "Why our coverage is published as a set of check ids and never as a percentage.",
+      "as_of": "2026-11-24"
+    }
+  ]
+}

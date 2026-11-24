@@ -8,6 +8,11 @@ on:
   pull_request:
     paths:
       - "registry/**"
+  schedule:
+    # A claim that resolves today says nothing about next week. The evidence
+    # index is re-fetched daily, so "present" stops being true the moment the
+    # cited bytes move - without waiting for someone to edit a prose file.
+    - cron: "17 3 * * *"
   workflow_dispatch:
 
 permissions:
@@ -25,3 +30,14 @@ jobs:
         run: python registry/check_registry.py
       - name: Negative control (bad entries must be rejected)
         run: python registry/negative_control.py
+      - name: Evidence index (every public claim must resolve to bytes)
+        run: python registry/check_evidence_index.py
+      - name: Evidence index structure only, offline
+        # Runs after the networked step on purpose: if the network is flaky,
+        # this still proves the rows are well formed, and it prints UNVERIFIED
+        # instead of passing quietly.
+        run: python registry/check_evidence_index.py --no-network
+      - name: Citations (do the pages we quote still say what we quoted?)
+        run: python registry/check_citations.py
+      - name: Citations structure only, offline
+        run: python registry/check_citations.py --no-network

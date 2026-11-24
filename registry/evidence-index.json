@@ -1,0 +1,193 @@
+{
+  "contract_version": "uibc-evidence-index/1",
+  "purpose": "The public face of this organisation keeps understating what the implementation repositories can prove. On 2026-11-24 that happened three times in one day: a second implementation (verify-js, 18 of 19 checks) was described as missing; a verifier benchmark record was described as absent; and a Bitcoin block attestation (height 976735) was described as pending. Each description was written from memory or from an older snapshot. This file exists so that a claim about our own state is a row with a digest behind it, and so that 'absent' has to survive a file that says otherwise.",
+  "rules": [
+    "present: at least one witness whose bytes are fetched and whose sha256 and length are compared; at least one of them must not be prose (.md/.txt), because a paragraph cannot witness itself.",
+    "absent: must carry an absent_check that fetches a machine-readable ledger and compares a path to an expected value. If the ledger says otherwise, the entry is refused - that is how an under-claim is stopped.",
+    "link: where one witness states the digest of another (a proof file naming its own container), the two must agree.",
+    "as_of: an ISO date for when the claim was last re-derived from the artifacts rather than remembered."
+  ],
+  "entries": [    {
+      "id": "eight-row-matrix",
+      "claim": "The public corpus gate has eight rows, each pinned to an expected verdict and exit code, and a drifted cell fails the build.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "MATRIX GATE OK - all 8 rows match (local; CI green on 2 OS x 2 Python)",
+      "witness": [
+        {
+          "path": "tools/run_vectors.py",
+          "url": "https://raw.githubusercontent.com/UIBC/vectors/main/tools/run_vectors.py",
+          "sha256": "c8a32e4dac636d6efb44d4d54d19cba6bb5157503a5f0357d7540c1732083899",
+          "bytes": 3874
+        }
+      ],
+      "published_in": ["https://github.com/UIBC/vectors", "https://github.com/UIBC/spec/blob/main/STATUS.md"]
+    },
+    {
+      "id": "adversarial-supplement",
+      "claim": "Twelve adversarial packages are built at run time; nine must be refused, three are documented defects that must still reproduce.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "ADVERSARIAL OK - 9/9 must-reject cases rejected; 3 documented gap(s) still reproduce",
+      "witness": [
+        {
+          "path": "tools/run_adversarial.py",
+          "url": "https://raw.githubusercontent.com/UIBC/vectors/main/tools/run_adversarial.py",
+          "sha256": "ab6d6c4fb0bdee7d65609bef28a2dfa46b032d3cde3c700f3552dcebb66bff8b",
+          "bytes": 8234
+        }
+      ],
+      "published_in": ["https://github.com/UIBC/vectors"]
+    },
+    {
+      "id": "frozen-fixtures",
+      "claim": "The committed fixture bytes are pinned by digest, so a fixture cannot be edited to make a case pass.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "FROZEN OK - 45 fixture files match FIXTURES.sha256",
+      "witness": [
+        {
+          "path": "FIXTURES.sha256",
+          "url": "https://raw.githubusercontent.com/UIBC/vectors/main/FIXTURES.sha256",
+          "sha256": "bb7709e3ae9b6e574ca1ee9c88c863c3954de617d905933587763bd84969afaa",
+          "bytes": 4565
+        }
+      ]
+    },
+    {
+      "id": "submission-registry",
+      "claim": "A submission registry exists with six states, transitions enforced by a script, and honest zero independent rows.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "REGISTRY OK - 1 entry, 0 independent, transitions valid; NEGATIVE CONTROL OK - 4/4 bad inputs rejected",
+      "witness": [
+        {
+          "path": "registry/index.json",
+          "url": "https://raw.githubusercontent.com/UIBC/.github/main/registry/index.json",
+          "sha256": "d27fdd937be92f953dc7610a719ea442afc4042398d87ce241b9df7f49bf11de",
+          "bytes": 709
+        },
+        {
+          "path": "registry/check_registry.py",
+          "url": "https://raw.githubusercontent.com/UIBC/.github/main/registry/check_registry.py",
+          "sha256": "7d570a501d79dd00802b07b0eb2519d1e666f172ad23c87398410a7277c128b1",
+          "bytes": 6888
+        }
+      ]
+    },
+    {
+      "id": "second-implementation",
+      "claim": "A second implementation in a second language exists and is enforced in CI, covering 18 of 19 checks.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "strict 36/36, refused 30/36 over 36 packages; tools/assert_second_impl.py fails the build when the second implementation drifts",
+      "witness": [
+        {
+          "path": "docs/SECOND-IMPLEMENTATION.md",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/docs/SECOND-IMPLEMENTATION.md",
+          "sha256": "e93303b999d3ea70d0897492ba8e0a7bca6de5c49e916b897a2789b7d480d967",
+          "bytes": 6543
+        },
+        {
+          "path": "tools/verify-js/verify.mjs",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/tools/verify-js/verify.mjs",
+          "sha256": "0428f57e9b58759acb1b3027cd40843ee4d3d5d5352a2ecd4f77ffc8ce086887",
+          "bytes": 58364
+        }
+      ],
+      "why_it_matters": "Public documents described this as missing on 2026-11-24 while the code had been in CI since 2026-11-18. An under-claim is as damaging as an overclaim when a reader relies on it."
+    },
+    {
+      "id": "external-verifier-benchmark",
+      "claim": "A separate verifier has been measured against the mutation benchmark, with per-case raw exit codes recorded.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "21 mutants, 2 accepted, false-accept rate 9.5%, run 2026-11-18T17:38:09Z",
+      "witness": [
+        {
+          "path": "benchmarks/submissions/uibc-iverify@158a82d.json",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/benchmarks/submissions/uibc-iverify@158a82d.json",
+          "sha256": "ae3932fe2128c6cc9c9740c2a5d68e74129ce99d6ed26caf50b39b45da8964d3",
+          "bytes": 2963
+        }
+      ]
+    },
+    {
+      "id": "time-proof-v0.5.0",
+      "claim": "The v0.5.0 corpus digest file is attested by a Bitcoin block, not merely by a calendar server.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "block height 976735, block time 2026-11-20T14:17:33Z, merkle root matched against blockstream.info on 2026-11-21T01:15Z",
+      "witness": [
+        {
+          "path": "anchors/attestations/v0.5.0/BITCOIN-ATTESTATION.json",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/anchors/attestations/v0.5.0/BITCOIN-ATTESTATION.json",
+          "sha256": "63574da5e5d9c49a83bf9a1704612b0e748b9a40ec2db5065f0ed177e487d28f",
+          "bytes": 1911
+        },
+        {
+          "path": "anchors/attestations/v0.5.0/CORPUS-DIGESTS.txt.ots",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/anchors/attestations/v0.5.0/CORPUS-DIGESTS.txt.ots",
+          "sha256": "f8e216935dcd1baa5f8e647fd53aa2a3b70f1250e8dc8a48187f0e861357e3d6",
+          "bytes": 1308
+        }
+      ],
+      "link": {
+        "from": "anchors/attestations/v0.5.0/BITCOIN-ATTESTATION.json",
+        "json_path": "proof.sha256",
+        "to": "anchors/attestations/v0.5.0/CORPUS-DIGESTS.txt.ots",
+        "note": "the attestation names the digest of its own proof container"
+      },
+      "limits": "A block proves existence before that block's time. It does not prove authorship, and it does not prove the workflow behaved."
+    },
+    {
+      "id": "time-proof-v0.4.1",
+      "claim": "The v0.4.1 corpus digest file is attested by a Bitcoin block.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "block height 976684, block time 2026-11-20T04:46:13Z",
+      "witness": [
+        {
+          "path": "anchors/attestations/v0.4.1/BITCOIN-ATTESTATION.json",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/anchors/attestations/v0.4.1/BITCOIN-ATTESTATION.json",
+          "sha256": "db7d44f06c42e5a348b0f8b8174c1db1e6eaba33b472c9ec2a74267a94066368",
+          "bytes": 1635
+        },
+        {
+          "path": "anchors/attestations/v0.4.1/CORPUS-DIGESTS.txt.ots",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/anchors/attestations/v0.4.1/CORPUS-DIGESTS.txt.ots",
+          "sha256": "d107ecd530641fe0dd6dde7f63c16dfd7b13d7abf4cf7635d1ab3dec9bc3fa8e",
+          "bytes": 1168
+        }
+      ],
+      "link": {
+        "from": "anchors/attestations/v0.4.1/BITCOIN-ATTESTATION.json",
+        "json_path": "proof.sha256",
+        "to": "anchors/attestations/v0.4.1/CORPUS-DIGESTS.txt.ots",
+        "note": "the v0.4.1 page file was a bare serialized tree the ots client refuses, so the standard container lives in the repository"
+      }
+    },
+    {
+      "id": "external-independent-run",
+      "claim": "No run of this corpus by anyone outside this organisation has been posted.",
+      "state": "absent",
+      "as_of": "2026-11-24",
+      "measured": "headline 0, rows 0, independent 0",
+      "absent_check": {
+        "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/docs/EXTERNAL-RUNS.json",
+        "path": "headline",
+        "equals": 0,
+        "note": "if this ledger ever shows a headline above zero, this entry is wrong and the checker refuses it"
+      },
+      "witness": [
+        {
+          "path": "docs/EXTERNAL-RUNS.json",
+          "url": "https://raw.githubusercontent.com/zhaoxinghua09-cell/uibc-core/main/docs/EXTERNAL-RUNS.json",
+          "sha256": "d1ff09fb8b807aff30e843da12c814d286c75ce0d40c5af4ebfd856fd757f3bd",
+          "bytes": 830
+        }
+      ],
+      "limits": "Absence is the one claim this file cannot make cheaply: a ledger we maintain could simply never be updated. It is recorded as a machine-checked zero, not as proof that nobody ran it."
+    }
+  ]
+}
