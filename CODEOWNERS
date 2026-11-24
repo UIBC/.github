@@ -1,0 +1,27 @@
+# Default CODEOWNERS for every repository in this organisation.
+#
+# Honest state: one maintainer, so this file does not add review capacity
+# today. It exists to record which area belongs to whom, so that a second
+# maintainer can be added by editing one line instead of renegotiating
+# ownership across repositories later.
+#
+# Patterns are repository-relative and are applied to each repository that
+# does not carry its own CODEOWNERS file.
+
+*                       @zhaoxinghua09-cell
+
+# Normative text: the meaning of a verdict.
+/spec/                  @zhaoxinghua09-cell
+
+# Cases, expectations, ledger, receipts: what is accepted and recorded.
+/vectors/               @zhaoxinghua09-cell
+/receipts/              @zhaoxinghua09-cell
+/EXPECTED.md            @zhaoxinghua09-cell
+/RUNS.md                @zhaoxinghua09-cell
+
+# Test fixtures: public on purpose, pinned by digest, replaced never.
+/keys/                  @zhaoxinghua09-cell
+
+# Gates and guards: a change here can make a red build green.
+/tools/                 @zhaoxinghua09-cell
+/.github/               @zhaoxinghua09-cell
