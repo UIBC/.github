@@ -7,7 +7,74 @@
     "link: where one witness states the digest of another (a proof file naming its own container), the two must agree.",
     "as_of: an ISO date for when the claim was last re-derived from the artifacts rather than remembered."
   ],
-  "entries": [
+  "entries": [    {
+      "id": "eight-row-matrix",
+      "claim": "The public corpus gate has eight rows, each pinned to an expected verdict and exit code, and a drifted cell fails the build.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "MATRIX GATE OK - all 8 rows match (local; CI green on 2 OS x 2 Python)",
+      "witness": [
+        {
+          "path": "tools/run_vectors.py",
+          "url": "https://raw.githubusercontent.com/UIBC/vectors/main/tools/run_vectors.py",
+          "sha256": "c8a32e4dac636d6efb44d4d54d19cba6bb5157503a5f0357d7540c1732083899",
+          "bytes": 3874
+        }
+      ],
+      "published_in": ["https://github.com/UIBC/vectors", "https://github.com/UIBC/spec/blob/main/STATUS.md"]
+    },
+    {
+      "id": "adversarial-supplement",
+      "claim": "Twelve adversarial packages are built at run time; nine must be refused, three are documented defects that must still reproduce.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "ADVERSARIAL OK - 9/9 must-reject cases rejected; 3 documented gap(s) still reproduce",
+      "witness": [
+        {
+          "path": "tools/run_adversarial.py",
+          "url": "https://raw.githubusercontent.com/UIBC/vectors/main/tools/run_adversarial.py",
+          "sha256": "ab6d6c4fb0bdee7d65609bef28a2dfa46b032d3cde3c700f3552dcebb66bff8b",
+          "bytes": 8234
+        }
+      ],
+      "published_in": ["https://github.com/UIBC/vectors"]
+    },
+    {
+      "id": "frozen-fixtures",
+      "claim": "The committed fixture bytes are pinned by digest, so a fixture cannot be edited to make a case pass.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "FROZEN OK - 45 fixture files match FIXTURES.sha256",
+      "witness": [
+        {
+          "path": "FIXTURES.sha256",
+          "url": "https://raw.githubusercontent.com/UIBC/vectors/main/FIXTURES.sha256",
+          "sha256": "bb7709e3ae9b6e574ca1ee9c88c863c3954de617d905933587763bd84969afaa",
+          "bytes": 4565
+        }
+      ]
+    },
+    {
+      "id": "submission-registry",
+      "claim": "A submission registry exists with six states, transitions enforced by a script, and honest zero independent rows.",
+      "state": "present",
+      "as_of": "2026-11-24",
+      "measured": "REGISTRY OK - 1 entry, 0 independent, transitions valid; NEGATIVE CONTROL OK - 4/4 bad inputs rejected",
+      "witness": [
+        {
+          "path": "registry/index.json",
+          "url": "https://raw.githubusercontent.com/UIBC/.github/main/registry/index.json",
+          "sha256": "d27fdd937be92f953dc7610a719ea442afc4042398d87ce241b9df7f49bf11de",
+          "bytes": 709
+        },
+        {
+          "path": "registry/check_registry.py",
+          "url": "https://raw.githubusercontent.com/UIBC/.github/main/registry/check_registry.py",
+          "sha256": "7d570a501d79dd00802b07b0eb2519d1e666f172ad23c87398410a7277c128b1",
+          "bytes": 6888
+        }
+      ]
+    },
     {
       "id": "second-implementation",
       "claim": "A second implementation in a second language exists and is enforced in CI, covering 18 of 19 checks.",
